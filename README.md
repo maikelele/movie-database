@@ -32,5 +32,3 @@ Przykładowe GraphQL
 - Filmy z aktorami:
   { movies{ title released actors{ name } } }
 
-Licencja
-- Materiały edukacyjne do zaliczenia przedmiotu; brak formalnej licencji.
