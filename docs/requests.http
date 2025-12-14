@@ -1,0 +1,59 @@
+# VS Code REST Client or IntelliJ HTTP client format
+
+### Health
+GET http://localhost:3000/health
+
+### Add person
+POST http://localhost:3000/api/people
+Content-Type: application/json
+
+{
+  "name": "Keanu Reeves",
+  "born": 1964
+}
+
+### Add movie
+POST http://localhost:3000/api/movies
+Content-Type: application/json
+
+{
+  "title": "The Matrix",
+  "released": 1999
+}
+
+### Create ACTED_IN
+POST http://localhost:3000/api/acted-in
+Content-Type: application/json
+
+{
+  "personName": "Keanu Reeves",
+  "movieTitle": "The Matrix",
+  "roles": ["Neo"]
+}
+
+### List people
+GET http://localhost:3000/api/people?search=Keanu
+
+### List movies
+GET http://localhost:3000/api/movies?search=Matrix
+
+### Graph
+GET http://localhost:3000/api/graph?limit=50
+
+### GraphQL: people
+POST http://localhost:3000/graphql
+Content-Type: application/json
+
+{
+  "query": "query($q:String){ people(search:$q){ name born actedIn{ title released } } }",
+  "variables": { "q": "Keanu" }
+}
+
+### GraphQL: movies
+POST http://localhost:3000/graphql
+Content-Type: application/json
+
+{
+  "query": "{ movies{ title released actors{ name } } }"
+}
+

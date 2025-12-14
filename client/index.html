@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>People & Movies</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="preconnect" href="https://unpkg.com" />
+    <script defer src="https://unpkg.com/vis-network@9.1.6/dist/vis-network.min.js"></script>
+    <script defer src="./app.js"></script>
+  </head>
+  <body>
+    <header>
+      <h1>People & Movies</h1>
+      <p>REST + opcjonalnie GraphQL. Baza: Neo4j (AuraDB)</p>
+    </header>
+    <main>
+      <section class="panel">
+        <div class="tabs">
+          <button class="tab active" data-tab="people">Osoby</button>
+          <button class="tab" data-tab="movies">Filmy</button>
+          <button class="tab" data-tab="graph">Graf</button>
+        </div>
+
+        <div class="tab-content active" id="people">
+          <form id="add-person-form" class="row">
+            <input name="name" placeholder="Imię i nazwisko" required />
+            <input name="born" type="number" placeholder="Rok urodzenia" />
+            <button type="submit">Dodaj osobę</button>
+          </form>
+          <div class="row">
+            <input id="search-person" placeholder="Szukaj osoby" />
+            <button id="btn-search-person">Szukaj</button>
+          </div>
+          <ul id="people-list"></ul>
+        </div>
+
+        <div class="tab-content" id="movies">
+          <form id="add-movie-form" class="row">
+            <input name="title" placeholder="Tytuł" required />
+            <input name="released" type="number" placeholder="Rok wydania" />
+            <button type="submit">Dodaj film</button>
+          </form>
+          <div class="row">
+            <input id="search-movie" placeholder="Szukaj filmu" />
+            <button id="btn-search-movie">Szukaj</button>
+          </div>
+          <ul id="movies-list"></ul>
+        </div>
+
+        <div class="tab-content" id="graph">
+          <form id="add-acted-form" class="row">
+            <input name="personName" placeholder="Osoba (nazwa)" required />
+            <input name="movieTitle" placeholder="Film (tytuł)" required />
+            <input name="roles" placeholder="Role (opcjonalnie, przecinki)" />
+            <button type="submit">Powiąż (ACTED_IN)</button>
+          </form>
+          <div class="row">
+            <label>Limit:</label>
+            <input id="graph-limit" type="number" value="50" />
+            <button id="btn-load-graph">Załaduj graf</button>
+          </div>
+          <div id="graph-container"></div>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <small>PoC — AGH, Neo4j AuraDB, Express</small>
+    </footer>
+  </body>
+  </html>
+

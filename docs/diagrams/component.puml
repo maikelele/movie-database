@@ -1,0 +1,25 @@
+@startuml
+title Komponenty
+
+package Client {
+  [SPA (HTML/JS)]
+}
+
+package Server {
+  [Express REST]
+  [GraphQL (optional)]
+  [Neo4j Driver]
+}
+
+package Data {
+  database "Neo4j AuraDB" as Aura
+}
+
+[SPA (HTML/JS)] --> [Express REST]
+[SPA (HTML/JS)] ..> [GraphQL (optional)] : opcjonalnie
+[Express REST] --> [Neo4j Driver]
+[GraphQL (optional)] --> [Neo4j Driver]
+[Neo4j Driver] --> Aura
+
+@enduml
+

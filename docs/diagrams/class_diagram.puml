@@ -1,0 +1,21 @@
+@startuml
+title Model domeny: Osoby i Filmy
+
+class Person {
+  +name: String
+  +born: Int
+}
+
+class Movie {
+  +title: String
+  +released: Int
+}
+
+Person "*" -down-"*" Movie : ACTED_IN
+
+note on link
+  roles: [String]
+end note
+
+@enduml
+

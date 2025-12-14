@@ -1,0 +1,22 @@
+:root{ --bg:#0f172a; --panel:#111827; --muted:#94a3b8; --fg:#e5e7eb; --accent:#22c55e; --accent2:#38bdf8; }
+*{ box-sizing:border-box; }
+html,body{ margin:0; padding:0; height:100%; background:var(--bg); color:var(--fg); font:14px/1.4 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; }
+header,footer{ padding:16px 24px; }
+header h1{ margin:0 0 4px; font-size:20px; }
+header p{ margin:0; color:var(--muted); }
+main{ padding:12px 24px 24px; }
+.panel{ background:var(--panel); border-radius:12px; padding:12px; box-shadow:0 10px 30px rgba(0,0,0,.24); }
+.row{ display:flex; gap:8px; margin:8px 0; }
+input,button{ padding:10px 12px; border-radius:8px; border:1px solid #1f2937; background:#0b1220; color:var(--fg); }
+button{ background:linear-gradient(90deg, var(--accent), var(--accent2)); color:#0a0a0a; border:0; font-weight:600; cursor:pointer; }
+button:hover{ filter:brightness(1.1); }
+ul{ list-style:none; padding:0; margin:8px 0 0; }
+li{ padding:10px; border:1px solid #1f2937; border-radius:8px; background:#0b1220; margin-bottom:8px; }
+.tabs{ display:flex; gap:8px; margin-bottom:8px; }
+.tab{ background:#0b1220; color:var(--fg); border:1px solid #1f2937; padding:8px 10px; border-radius:8px; cursor:pointer; }
+.tab.active{ background:linear-gradient(90deg, var(--accent), var(--accent2)); color:#0a0a0a; border:0; font-weight:600; }
+.tab-content{ display:none; }
+.tab-content.active{ display:block; }
+#graph-container{ height:520px; border:1px dashed #263042; border-radius:8px; margin-top:8px; background:#0b1220; }
+label{ align-self:center; color:var(--muted); }
+

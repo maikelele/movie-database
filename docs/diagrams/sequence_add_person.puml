@@ -1,0 +1,17 @@
+@startuml
+title Sekwencja: dodanie osoby (REST)
+
+actor User
+participant SPA as "Frontend (SPA)"
+participant API as "Express API"
+database DB as "Neo4j AuraDB"
+
+User -> SPA: submit form (name,born)
+SPA -> API: POST /api/people {name,born}
+API -> DB: MERGE (p:Person {name}) SET p.born
+DB --> API: p
+API --> SPA: 201 { item: p }
+SPA --> User: aktualizacja listy osób
+
+@enduml
+
