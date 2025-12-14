@@ -113,4 +113,3 @@ $('#btn-load-graph').addEventListener('click', loadGraph);
 loadPeople();
 loadMovies();
 loadGraph();
-

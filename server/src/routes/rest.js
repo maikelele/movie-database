@@ -81,14 +81,49 @@ router.post('/acted-in', async (req, res, next) => {
   }
   const session = getSession();
   try {
+    const rolesParam = Array.isArray(roles) && roles.length ? roles : null;
+    console.log(
+      `[ACTED_IN][REST] request person="${personName}" movie="${movieTitle}" roles=${JSON.stringify(rolesParam)}`
+    );
     const result = await session.run(
       `MATCH (p:Person {name: $personName}), (m:Movie {title: $movieTitle})
        MERGE (p)-[r:ACTED_IN]->(m)
        SET r.roles = coalesce($roles, r.roles)
        RETURN p, m, r`,
-      { personName, movieTitle, roles }
+      { personName, movieTitle, roles: rolesParam }
     );
     const ok = Boolean(result.records[0]);
+    if (!ok) {
+      const chk = await session.run(
+        `OPTIONAL MATCH (p:Person {name: $personName})
+         OPTIONAL MATCH (m:Movie {title: $movieTitle})
+         RETURN p IS NOT NULL AS hasPerson, m IS NOT NULL AS hasMovie`,
+        { personName, movieTitle }
+      );
+      const rec = chk.records[0];
+      const hasPerson = rec?.get('hasPerson');
+      const hasMovie = rec?.get('hasMovie');
+      console.warn(
+        `[ACTED_IN][REST] 404 not found: person=${hasPerson ? 'found' : 'missing'}, movie=${hasMovie ? 'found' : 'missing'} for person="${personName}" movie="${movieTitle}"`
+      );
+    } else {
+      try {
+        const p = result.records[0].get('p').properties;
+        const m = result.records[0].get('m').properties;
+        const r = result.records[0].get('r').properties;
+        const s = result.summary;
+        const counters = (s?.counters?.updates?.() ?? s?.counters) || {};
+        const created = counters.relationshipsCreated || 0;
+        const propsSet = counters.propertiesSet || 0;
+        console.log(
+          `[ACTED_IN][REST] ok ${p.name} -> ${m.title} roles=${JSON.stringify(
+            r.roles || null
+          )} created=${created} propsSet=${propsSet}`
+        );
+      } catch {
+        // best-effort logging; ignore failures here
+      }
+    }
     res.status(ok ? 201 : 404).json({ ok });
   } catch (e) {
     next(e);
